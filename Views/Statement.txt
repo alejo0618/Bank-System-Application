@@ -1,0 +1,2 @@
+﻿Heading:STATEMENT||Subheading:DETAILS||Footer:
+AtributeName:Find Account||DataType:int||MaxLength:10||Nullable:false||RegexValidation:(^$)|^[0-9]+$||Visualisation:Plain

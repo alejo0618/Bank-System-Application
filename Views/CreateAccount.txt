@@ -1,0 +1,6 @@
+﻿Heading:CREATE A NEW ACCOUNT||Subheading:PROVIDE THE DETAILS||Footer:
+AtributeName:First Name||DataType:string||MaxLength:30||Nullable:false||RegexValidation:(^$)|^[a-zA-Z\s]+$||Visualisation:Plain
+AtributeName:Last Name||DataType:string||MaxLength:30||Nullable:false||RegexValidation:(^$)|^[a-zA-Z\s]+$||Visualisation:Plain
+AtributeName:Address||DataType:string||MaxLength:30||Nullable:false||RegexValidation:(^$)|^[a-zA-Z0-9\s.,'-]+$||Visualisation:Plain
+AtributeName:Phone||DataType:ulong||MaxLength:10||Nullable:false||RegexValidation:(^$)|^[0-9]+$||Visualisation:Plain
+AtributeName:Email||DataType:string||MaxLength:30||Nullable:false||RegexValidation:(^$)|^[a-zA0-9-Z@.-]+$||Visualisation:Plain

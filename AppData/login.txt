@@ -1,0 +1,2 @@
+﻿USER||PASSWORD
+admin||123456

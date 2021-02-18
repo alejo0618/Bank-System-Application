@@ -1,0 +1,2 @@
+﻿Heading:BANK SYSTEM||Subheading:1. Create a new account#2. Search for an account#3. Deposit#4. Withdraw#5. A/C statement#6. Delete account#7. Exit#||Footer:
+AtributeName:Enter your choice (1-7):||DataType:int||MaxLength:1||Nullable:false||RegexValidation:(^$)|^[1-7]+$||Visualisation:Plain

@@ -1,0 +1,3 @@
+﻿Heading:BANK SYSTEM||Subheading:Log in!||Footer:
+AtributeName:User Name||DataType:string||MaxLength:10||Nullable:false||RegexValidation:(^$)|^[a-zA-Z0-9]+$||Visualisation:Plain
+AtributeName:Password||DataType:string||MaxLength:10||Nullable:false||RegexValidation:(^$)|^[a-zA-Z0-9]+$||Visualisation:Password
