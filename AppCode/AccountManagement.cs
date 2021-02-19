@@ -293,7 +293,81 @@ namespace Bank_System_Application
         /// <returns>Return true if the account statement is generated successfully. 
         protected bool GenerateStatement(string subject, out string err)
         {
-            // Stub method
+            try
+            {
+                // SMTP gmail configuration client
+                MailMessage mail = new MailMessage();
+                
+                SmtpClient SmtpServer = new SmtpClient(EmailCredentials.SmtpClient);
+
+                // Email created
+                mail.From = new MailAddress(EmailCredentials.MailAddress);
+                mail.To.Add(Email);
+                mail.Subject = subject;
+
+                string lastFiveTransactions = string.Empty;
+
+                // Using a basig HTML template to add more format to the email
+                int i = TransactionLog.Count <= 5 ? 0 : TransactionLog.Count - 5;
+                while (i < TransactionLog.Count)
+                {
+                    lastFiveTransactions += string.Format(@"<tr>
+                                                                <td style='border: 1px solid black'>{0}</td>
+                                                                <td style='border: 1px solid black'>{1}</td>
+                                                                <td style='border: 1px solid black'>{2}</td>
+                                                                <td style='border: 1px solid black'>{3}</td>
+                                                            </tr>{4}", TransactionLog[i].TransactionDate, TransactionLog[i].TransactionType, TransactionLog[i].Amount, TransactionLog[i].Balance, System.Environment.NewLine);
+                    i += 1;
+                }
+
+                mail.Body = string.Format(@"
+                                            <h2>User Details:</h2>
+                                                <ul>
+                                                  <li>Name:{0}</li>
+                                                  <li>Last Name:{1}</li>
+                                                  <li>Address:{2}</li>
+                                                  <li>Phone:{3}</li>
+                                                  <li>Email:{4}</li>
+                                                  <li>Balance:{5}</li>  
+                                                </ul>", FirstName, LastName, Address, Phone, Email, AccountBalance);
+
+                // Adding the last transactions when there is at least one record to display
+                if (TransactionLog.Count > 0)
+                {
+                    lastFiveTransactions = string.Format(@"
+                                            <h2>Last five Transactions:</h2>
+                                            <table style='border-collapse: collapse'>
+                                            <thead>
+                                                <tr>
+                                                    <th style='border: 1px solid black'>Date</th>
+                                                    <th style='border: 1px solid black'>Transaction</th>
+                                                    <th style='border: 1px solid black'>Amount</th>
+                                                    <th style='border: 1px solid black'>Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {0}
+                                            </tbody>
+                                            </table>", lastFiveTransactions);
+                    mail.Body += lastFiveTransactions;
+                }
+
+                mail.IsBodyHtml = true;
+
+                // Parameters by default to send the email
+                SmtpServer.Port = EmailCredentials.Port;
+                SmtpServer.Credentials = new System.Net.NetworkCredential(EmailCredentials.Mail, EmailCredentials.Password);
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+
+            }
+            catch (Exception)
+            {
+                err = "It is not possible to send the message at this moment.";
+                return false;
+            }
+
             err = "Statement generated successfully!";
             return true;
 
